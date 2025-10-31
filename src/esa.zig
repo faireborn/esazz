@@ -5,7 +5,7 @@ pub fn Esazz(
     comptime k: Index,
 ) type {
     return struct {
-        string: []Char,
+        string: []const Char,
         suffix_array: []NodeInt,
         left: []NodeInt,
         right: []NodeInt,
@@ -16,8 +16,8 @@ pub fn Esazz(
         allocator: std.mem.Allocator,
 
         const Self = @This();
-        fn init(allocator: std.mem.Allocator, string: []Char) !Self {
-            const n = string.len;
+        fn init(allocator: std.mem.Allocator, string: []const Char) !Self {
+            const n: Index = @intCast(string.len);
             return .{
                 .string = string,
                 .suffix_array = try allocator.alloc(NodeInt, n),
@@ -61,4 +61,10 @@ pub fn add(a: i32, b: i32) i32 {
 
 test "basic add functionality" {
     try std.testing.expect(add(3, 7) == 10);
+}
+
+test "Esazz init deinit" {
+    const string = "hello, world";
+    const esazz = try Esazz(u8, i32, u32, 0x110000).init(std.testing.allocator, string);
+    defer esazz.deinit();
 }
