@@ -59,12 +59,30 @@ pub fn add(a: i32, b: i32) i32 {
     return a + b;
 }
 
-test "basic add functionality" {
-    try std.testing.expect(add(3, 7) == 10);
-}
-
 test "Esazz init deinit" {
     const string = "hello, world";
+    const length = string.len;
+    const k = 0x110000;
+    const esazz = try Esazz(
+        u8,
+        i32,
+        u32,
+        k,
+    ).init(std.testing.allocator, string);
+    defer esazz.deinit();
+
+    try std.testing.expectEqual(esazz.n, length);
+    try std.testing.expectEqual(esazz.k, k);
+}
+
+test "Esazz array" {
+    const string = "abracadabra";
+    const length = string.len;
     const esazz = try Esazz(u8, i32, u32, 0x110000).init(std.testing.allocator, string);
     defer esazz.deinit();
+
+    try std.testing.expectEqual(esazz.suffix_array.len, length);
+    try std.testing.expectEqual(esazz.left.len, length);
+    try std.testing.expectEqual(esazz.right.len, length);
+    try std.testing.expectEqual(esazz.depth.len, length);
 }
