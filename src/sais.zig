@@ -114,4 +114,20 @@ test "getBuckets" {
             else => try std.testing.expectEqual(11, sum),
         }
     }
+
+    @memset(bucket_b, 0);
+
+    SP.getBuckets(bucket_c, bucket_b, true);
+
+    for (bucket_b, 0..) |sum, codepoint| {
+        switch (codepoint) {
+            0...('a' - 1) => try std.testing.expectEqual(0, sum),
+            'a' => try std.testing.expectEqual(5, sum),
+            'b' => try std.testing.expectEqual(7, sum),
+            'c' => try std.testing.expectEqual(8, sum),
+            'd'...'q' => try std.testing.expectEqual(9, sum),
+            'r' => try std.testing.expectEqual(11, sum),
+            else => try std.testing.expectEqual(11, sum),
+        }
+    }
 }
