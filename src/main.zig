@@ -2,7 +2,7 @@ const std = @import("std");
 const esazz = @import("esazz");
 
 pub fn main() !void {
-    try esazz.bufferedPrint();
+    std.debug.print("dummy main!\n", .{});
 }
 
 test "simple test" {
