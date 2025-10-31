@@ -37,10 +37,15 @@ pub fn Esazz(
             self.allocator.free(self.right);
             self.allocator.free(self.depth);
         }
+
+        fn esazz(self: *Self) !void {
+            _ = self;
+        }
     };
 }
 
 const std = @import("std");
+const saiszz = @import("sais.zig");
 
 test "Esazz init deinit" {
     const string = "hello, world";
@@ -54,8 +59,8 @@ test "Esazz init deinit" {
     ).init(std.testing.allocator, string);
     defer esazz.deinit();
 
-    try std.testing.expectEqual(esazz.n, length);
-    try std.testing.expectEqual(esazz.k, k);
+    try std.testing.expectEqual(length, esazz.n);
+    try std.testing.expectEqual(k, esazz.k);
 }
 
 test "Esazz array" {
@@ -64,8 +69,12 @@ test "Esazz array" {
     const esazz = try Esazz(u8, i32, u32, 0x110000).init(std.testing.allocator, string);
     defer esazz.deinit();
 
-    try std.testing.expectEqual(esazz.suffix_array.len, length);
-    try std.testing.expectEqual(esazz.left.len, length);
-    try std.testing.expectEqual(esazz.right.len, length);
-    try std.testing.expectEqual(esazz.depth.len, length);
+    try std.testing.expectEqual(length, esazz.suffix_array.len);
+    try std.testing.expectEqual(length, esazz.left.len);
+    try std.testing.expectEqual(length, esazz.right.len);
+    try std.testing.expectEqual(length, esazz.depth.len);
+}
+
+test {
+    _ = @import("sais.zig");
 }
