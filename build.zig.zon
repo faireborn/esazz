@@ -1,0 +1,13 @@
+.{
+    .name = .esazz,
+    .version = "0.0.0",
+    .fingerprint = 0xc26fa81bfe69181b,
+    .minimum_zig_version = "0.15.2",
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+        //"LICENSE",
+        "README.md",
+    },
+}
