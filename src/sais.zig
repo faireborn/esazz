@@ -2,13 +2,15 @@ const std = @import("std");
 
 pub fn SaiszzPrivate(comptime Char: type, comptime NodeInt: type, comptime Index: type, comptime k: Index) type {
     return struct {
-        fn saiszz(string: []const Char, suffix_array: []NodeInt, n: Index) !void {
+        pub fn saiszz(string: []const Char, suffix_array: []NodeInt, n: Index) !void {
             switch (n) {
                 0 => return,
                 1 => suffix_array[0] = 0,
                 else => return error.InvalidN,
             }
-            _ = string;
+
+            const fs = 0;
+            try suffixSort(string, suffix_array, fs, n, false);
         }
 
         fn suffixSort(string: []const Char, suffix_array: []NodeInt, fs: Index, n: Index, isbwt: bool) !void {
